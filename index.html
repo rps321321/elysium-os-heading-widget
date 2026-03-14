@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elysium Heading</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap');
+
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  /* Transparent background keeps it clean inside a Notion embed */
+  background: transparent; 
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.heading-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* Padding matches typical Notion block margins */
+  padding: 0 8px; 
+  gap: 16px;
+  animation: slideIn 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+@keyframes slideIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.icon {
+  font-size: 22px; 
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Subtle drop shadow so inner emojis match the sci-fi glow */
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));
+}
+
+.text-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: translateY(-2px); /* Optically centers text with the line */
+}
+
+.subtitle {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  color: #c9a84c; /* Primary gold accent */
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  opacity: 0.9;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 400;
+  color: #f5f2ee; /* Starlight white */
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.line-wrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+  height: 100%;
+}
+
+.glow-line {
+  height: 1px;
+  width: 100%;
+  /* Gradient fades out to blend into the darkness */
+  background: linear-gradient(90deg, rgba(201, 168, 76, 0.3), transparent);
+  position: relative;
+}
+
+/* Bright gold "power node" at the start of the line */
+.glow-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 12px;
+  height: 3px;
+  background: #c9a84c;
+  box-shadow: 0 0 8px #c9a84c;
+  border-radius: 2px;
+}
+</style>
+</head>
+<body>
+
+<div class="heading-container">
+  <div class="icon" id="dynamic-icon">🗓️</div>
+  <div class="text-group">
+    <div class="subtitle" id="dynamic-subtitle">SCHEDULE</div>
+    <div class="title" id="dynamic-title">Timetable</div>
+  </div>
+  <div class="line-wrapper">
+    <div class="glow-line"></div>
+  </div>
+</div>
+
+<script>
+  // This dynamic script allows you to just use URL Parameters to change the text and icon
+  // without creating a new HTML file for every single heading!
+  // Example: heading.html?icon=🎯&subtitle=FOCUS&title=Active Goals
+
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  const iconParam = urlParams.get('icon');
+  const subtitleParam = urlParams.get('subtitle');
+  const titleParam = urlParams.get('title');
+
+  if (iconParam !== null) {
+      document.getElementById('dynamic-icon').innerHTML = iconParam;
+  }
+  
+  if (subtitleParam !== null) {
+      document.getElementById('dynamic-subtitle').textContent = subtitleParam;
+  } else if (!urlParams.has('subtitle') && window.location.search) {
+      // If there are params but no subtitle, hide it completely
+      document.getElementById('dynamic-subtitle').style.display = 'none';
+  }
+  
+  if (titleParam !== null) {
+      document.getElementById('dynamic-title').textContent = titleParam;
+  }
+</script>
+
+</body>
+</html>
