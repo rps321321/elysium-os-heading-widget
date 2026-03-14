@@ -27,9 +27,8 @@ html, body {
 
 .heading-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Align top-level items to top to handle subtitle offset */
   width: 100%;
-  /* Padding matches typical Notion block margins */
   padding: 0 8px; 
   gap: 16px;
   animation: slideIn 0.8s ease-out forwards;
@@ -55,7 +54,14 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transform: translateY(-2px); /* Optically centers text with the line */
+  flex-grow: 1;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
 }
 
 .subtitle {
@@ -80,8 +86,8 @@ html, body {
   flex-grow: 1;
   display: flex;
   align-items: center;
-  margin-left: 12px;
   height: 100%;
+  padding-top: 4px; /* Slight offset to match optical center of large text */
 }
 
 .glow-line {
@@ -109,13 +115,15 @@ html, body {
 <body>
 
 <div class="heading-container">
-  <div class="icon" id="dynamic-icon">🗓️</div>
+  <div class="icon" id="dynamic-icon" style="margin-top: 14px;">🗓️</div>
   <div class="text-group">
     <div class="subtitle" id="dynamic-subtitle">SCHEDULE</div>
-    <div class="title" id="dynamic-title">Timetable</div>
-  </div>
-  <div class="line-wrapper">
-    <div class="glow-line"></div>
+    <div class="title-row">
+      <div class="title" id="dynamic-title">Timetable</div>
+      <div class="line-wrapper">
+        <div class="glow-line"></div>
+      </div>
+    </div>
   </div>
 </div>
 
